@@ -7,7 +7,7 @@ Created on Fri Apr 22 15:40:25 2022
 """
 
 import numpy as np
-
+import os
 
 ###############################################################################
 ###############################################################################
@@ -19,12 +19,8 @@ source = 'NGC3079'
 # Either 'seconds' or 'minutes'
 param = 'seconds' 
 
-# File name(s) from Listr OPTYPE 'SCAN'
-#Files = np.array([source+'-A_timerang.listr',source+'-B_timerang.listr',
-#                 source+'-C_timerang.listr',source+'-D_timerang.listr',
-#                 source+'-E_timerang.listr',source+'-F_timerang.listr']) 
-
-Files = np.array([source+'-F_timerang.listr'])
+# Folder location that contains *.listr file(s) from AIPS task Listr OPTYPE 'SCAN'
+Folder = os.listdir('./')
                   
 
 ###############################################################################
@@ -32,6 +28,14 @@ Files = np.array([source+'-F_timerang.listr'])
 # Do not touch any code below
 ###############################################################################
 ###############################################################################
+Files = []
+
+for file in Folder:
+    
+    if file.endswith(".listr") and source in file:
+        Files.append(os.path.join(file))
+        
+Files = sorted(Files)
 
 def Listr_time(File,param):
                                              
