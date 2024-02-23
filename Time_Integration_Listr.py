@@ -9,12 +9,13 @@ Created on Fri Apr 22 15:40:25 2022
 import numpy as np
 import os
 
+from VLBA_Calc_Thermal_Noise import VLBA_Thermal as VT
 ###############################################################################
 ###############################################################################
 # Input Parameters
 
 #Object
-source = 'NGC3079'
+source = 'NGC2992'
 
 # Either 'seconds' or 'minutes'
 param = 'seconds' 
@@ -99,6 +100,10 @@ def Listr_time(File,param):
 N = len(Files)
 
 for i in range(N):
-    print('For ' + Files[i].split('_')[0])
-    print('Total time of observation ' + str(round(Listr_time(Files[i],param),2)) + ' ' + param + '\n' )
+    act_noise = VT(round(Listr_time(Files[i],param)))
     
+    print('')
+    print('For ' + Files[i].split('_')[0])
+    print('Total time of observation ' + str(round(Listr_time(Files[i],param),2)) + ' ' + param)
+    print(act_noise.noise())
+    print('')
